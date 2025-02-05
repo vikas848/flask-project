@@ -10,14 +10,14 @@
 <body>
     <div class="container">
        <div class="a1 lonin">
-         <form action="">
+         <form action="/login" method="POST">
             <h1>login</h1>
             <div class="input-box">
-                <input type="text" placeholder="username" required>
+                <input type="text" name="username" placeholder="username" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="password" required>
+                <input type="password" name="password" placeholder="password" required>
                 <i class='bx bxs-lock'></i>
             </div>
             <div class="forgot-link">
@@ -36,22 +36,22 @@
 
 
        <div class="a1 registration">
-        <form action="">
+        <form action="/register" method="POST">
            <h1>registration</h1>
            <div class="input-box">
-               <input type="text" placeholder="username" required>
+               <input type="text" name="username" placeholder="username" required>
                <i class='bx bxs-user'></i>
            </div>
            <div class="input-box">
-            <input type="email" placeholder="email" required>
+            <input type="email" name="email" placeholder="email" required>
             <i class='bx bxs-envelope'></i>
         </div>
            <div class="input-box">
-               <input type="password" placeholder="password" required>
+               <input type="password" name="password" placeholder="password" required>
                <i class='bx bxs-lock'></i>
            </div>
            <button type="submit" class="btn">register</button>
-           <p>or registrater with social platfroms</p>
+           <p>or register with social platfroms</p>
            <div class="social-icons">
              <a href="#"><i class='bx bxl-instagram'></i></a>
              <a href="#"><i class='bx bxl-facebook'></i></a>
@@ -74,6 +74,16 @@
         </div>
       </div>
     </div>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <script>
         const container = document.querySelector('.container');
