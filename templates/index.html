@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,95 +8,88 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="container">
-       <div class="a1 lonin">
-         <form action="/login" method="POST">
-            <h1>login</h1>
-            <div class="input-box">
-                <input type="text" name="username" placeholder="username" required>
-                <i class='bx bxs-user'></i>
-            </div>
-            <div class="input-box">
-                <input type="password" name="password" placeholder="password" required>
-                <i class='bx bxs-lock'></i>
-            </div>
-            <div class="forgot-link">
-                <a href="#">forgot-password</a>
-            </div>
-            <button type="submit" class="btn">login</button>
-            <p>or login with social platfroms</p>
-            <div class="social-icons">
-              <a href="#"><i class='bx bxl-instagram'></i></a>
-              <a href="#"><i class='bx bxl-facebook'></i></a>
-              <a href="#"><i class='bx bxl-github'></i></a>
-              <a href="#"><i class='bx bxl-linkedin-square'></i></a>
-            </div>
-         </form>
-       </div>
+        <div class="a1 lonin">
+            <form action="/login" method="POST">
+                <h1>login</h1>
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="email" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="password" required>
+                    <i class='bx bxs-lock'></i>
+                </div>
+                <div class="forgot-link">
+                    <a href="#">forgot-password</a>
+                </div>
+                <button type="submit" class="btn">login</button>
+                <p>or login with social platfroms</p>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin-square'></i></a>
+                </div>
+            </form>
+        </div>
 
 
-       <div class="a1 registration">
-        <form action="/register" method="POST">
-           <h1>registration</h1>
-           <div class="input-box">
-               <input type="text" name="username" placeholder="username" required>
-               <i class='bx bxs-user'></i>
-           </div>
-           <div class="input-box">
-            <input type="email" name="email" placeholder="email" required>
-            <i class='bx bxs-envelope'></i>
+        <div class="a1 registration">
+            <form action="/register" method="POST">
+                <h1>registration</h1>
+                <div class="input-box">
+                    <input type="text" name="username" placeholder="username" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="password" required>
+                    <i class='bx bxs-lock'></i>
+                </div>
+                <button type="submit" class="btn">register</button>
+                <p>or register with social platfroms</p>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin-square'></i></a>
+                </div>
+            </form>
         </div>
-           <div class="input-box">
-               <input type="password" name="password" placeholder="password" required>
-               <i class='bx bxs-lock'></i>
-           </div>
-           <button type="submit" class="btn">register</button>
-           <p>or register with social platfroms</p>
-           <div class="social-icons">
-             <a href="#"><i class='bx bxl-instagram'></i></a>
-             <a href="#"><i class='bx bxl-facebook'></i></a>
-             <a href="#"><i class='bx bxl-github'></i></a>
-             <a href="#"><i class='bx bxl-linkedin-square'></i></a>
-           </div>
-        </form>
-      </div>
 
-      <div class="toggle-box">
-        <div class="toggle-panel toggle-left">
-            <h1>Hello, Welcome</h1>
-            <p>Don't have an account?</p>
-            <button class="btn register-btn">Register</button>
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Hello, Welcome</h1>
+                <p>Don't have an account?</p>
+                <button class="btn register-btn">Register</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Welcome Back</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
         </div>
-        <div class="toggle-panel toggle-right">
-            <h1>Welcome Back</h1>
-            <p>Already have an account?</p>
-            <button class="btn login-btn">Login</button>
-        </div>
-      </div>
     </div>
-
-    {% with messages = get_flashed_messages(with_categories=True) %}
-      {% if messages %}
-        <div class="flash-messages">
-          {% for category, message in messages %}
-            <p class="flash {{ category }}">{{ message }}</p>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
+    
 
     <script>
         const container = document.querySelector('.container');
         const registerBtn = document.querySelector('.register-btn');
         const loginBtn = document.querySelector('.login-btn');
 
-        registerBtn.addEventListener('click',() =>{
+        registerBtn.addEventListener('click', () => {
             container.classList.add('active');
         });
-        loginBtn.addEventListener('click',() => {
-            container.classList.remove('active'); 
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove('active');
         });
     </script>
 </body>
+
 </html>
