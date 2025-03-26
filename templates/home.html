@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
+
 <body>
-    <h1>home page</h1>
+    <form action="/home" method="POST">
+        <div class="a">
+            <form action="/second-page" method="get">
+                <a href="/logout" class="logout">Logout</a> 
+                <button class="button3" id="btn" type="button">En/Hi</button>
+            </form>
+            <div class="b">
+                <input class="c" id="user_input" name="user_input" rows="5" type="search" placeholder="Search">
+                <div class="d" id="user_input" name="user_input" rows="5" onclick="Recorder()"><img src="{{ url_for('static', filename='m.jpg') }}" alt="Mic Icon">
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+            <div>
+                
+                <div class="output">
+                    <strong>You submitted:</strong>
+                    <p>{{ user_input }}</p>
+                </div>
+              
+            </div>
+    </form>
+   
+    
+    <script>
+        function Recorder() {
+            let a = new webkitSpeechRecognition();
+            a.lang = "en-GB";
+            a.onresult = function (event) {
+                document.getElementById('user_input').value = event.results[0][0].transcript;
+            }
+            a.start();
+        }
+       
+    </script>
 </body>
+
 </html>
