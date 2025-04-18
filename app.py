@@ -1,12 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import mysql.connector
-from dotenv import load_dotenv
 import os
 from openai import OpenAI
 from werkzeug.security import generate_password_hash, check_password_hash
-
-# Load environment variables
-load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Required for session security
@@ -40,7 +36,7 @@ def login():
         if user:
             stored_password = user[2]  # Assuming password is stored in the 3rd column
             if check_password_hash(stored_password, password):
-                session['email'] = email  
+                session['email'] = True  
                 return redirect(url_for('home'))
             else:
                 flash("Invalid password. Please try again.", "danger")
@@ -56,10 +52,10 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
 
-        # hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(password)
 
         try:
-            cursor.execute("INSERT INTO users_data (name, email, password) VALUES (%s, %s, %s)", (username, email, password))
+            cursor.execute("INSERT INTO users_data (name, email, password) VALUES (%s, %s, %s)", (username, email, hashed_password))
             db.commit()
             session['email'] = email
             flash("Registration successful!", "success")
@@ -71,7 +67,7 @@ def register():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    if 'email' not in session:  # Corrected session key
+    if not session.get('email'):  # Corrected session key
         return redirect(url_for('log'))  # Redirect to login page if not logged in
 
     my_output = None
@@ -118,4 +114,4 @@ def logout():
     return redirect(url_for('log'))  # Redirect to the login page
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5020)
+    app.run(debug=True, port=5021)
