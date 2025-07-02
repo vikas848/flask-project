@@ -8,15 +8,22 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Load API key from env variable (recommended)
-myapi_key = os.getenv("")
+myapi_key = os.getenv("OPENAI_API_KEY")
 gptclient = OpenAI(api_key=myapi_key)
 
 # Database connection
+# db = mysql.connector.connect(
+#     host="172.18.0.2",
+#     user="root",
+#     password="vikas",
+#     database="flask_data",
+#     autocommit=True
+# )
 db = mysql.connector.connect(
-    host="172.17.0.2",
-    user="root",
-    password="vikas",
-    database="flask_data",
+    host=os.environ.get("MYSQL_HOST", "flaskapp"),
+    user=os.environ.get("MYSQL_USER", "root"),
+    password=os.environ.get("MYSQL_PASSWORD", "vikas"),
+    database=os.environ.get("MYSQL_DATABASE", "flask_data"),
     autocommit=True
 )
 cursor = db.cursor()

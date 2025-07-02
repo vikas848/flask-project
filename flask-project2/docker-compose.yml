@@ -1,8 +1,8 @@
-version: '3.8'
+# version: '3.8'
 
 services:
-  dabeliapp:
-    build: ./app
+  flaskapp:
+    build: .
     container_name: flask-container
     ports:
       - "5000:5000"
@@ -13,7 +13,8 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=vikas
       - MYSQL_DATABASE=flask_data
-
+      - OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    
   db:
     image: mysql:8.0
     container_name: mysql-container
@@ -30,9 +31,9 @@ services:
     image: nginx:latest
     container_name: nginx-container
     depends_on:
-      - dabeliapp
+      - flaskapp
     ports:
-      - "80:80"
+      - "1234:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
 
