@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  dabeliapp:
+    build: ./flask-p
+    container_name: flask-container
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=vikas
+      - MYSQL_DATABASE=flask_data
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: vikas
+      MYSQL_DATABASE: flask_data
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

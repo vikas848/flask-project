@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request,session, redirect, url_for, flash
 import mysql.connector
 import os
 from openai import OpenAI
@@ -11,13 +11,21 @@ myapi_key = ""
 gptclient = OpenAI(api_key=myapi_key)
 
 # Database connection
+# db = mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     password="vikas",
+#     database="flask_data",
+#     autocommit=True
+# )
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="vikas",
-    database="flask_data",
-    autocommit=True  # Ensures changes are committed automatically
+    host=os.environ.get("MYSQL_HOST", "localhost"),
+    user=os.environ.get("MYSQL_USER", "root"),
+    password=os.environ.get("MYSQL_PASSWORD", "vikas"),
+    database=os.environ.get("MYSQL_DATABASE", "flask_data"),
+    autocommit=True
 )
+
 cursor = db.cursor()
 
 @app.route("/")
@@ -34,7 +42,7 @@ def login():
         user = cursor.fetchone()
 
         if user:
-            stored_password = user[2]  # Assuming password is stored in the 3rd column
+            stored_password = user[2] 
             if check_password_hash(stored_password, password):
                 session['email'] = True  
                 return redirect(url_for('home'))
@@ -114,4 +122,4 @@ def logout():
     return redirect(url_for('log'))  # Redirect to the login page
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5021)
+    app.run(debug=True ,host='0.0.0.0', port=5000)  

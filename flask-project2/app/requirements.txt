@@ -1,0 +1,5 @@
+flask
+requests
+openai
+mysql-connector-python
+werkzeug
